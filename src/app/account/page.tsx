@@ -13,13 +13,15 @@ export default async function AccountPage() {
         redirect("/login");
     }
 
+    const email = data.user.email;
+    const name = email!.split("@")[0];
+    const description =
+        "This is a testing account, not bound to any real email";
+
     return (
         <div className="h-full min-h-screen w-full bg-background relative">
-            {/* Logout button - using form with server action */}
             <div className="absolute top-4 right-4 z-10">
-                <form action="/api/auth/signout" method="post">
-                    <Logout />
-                </form>
+                <Logout />
             </div>
 
             <div className="container mx-auto h-full">
@@ -28,14 +30,12 @@ export default async function AccountPage() {
                     <div className="flex flex-col items-center justify-center p-8 md:w-1/3 bg-muted/10">
                         <Avatar className="h-32 w-32 text-4xl font-medium mb-6">
                             <AvatarFallback className="bg-primary text-primary-foreground">
-                                "J"
+                                {name[0].toUpperCase()}
                             </AvatarFallback>
                         </Avatar>
 
-                        <h1 className="text-3xl font-bold mb-2">"John"</h1>
-                        <p className="text-muted-foreground text-lg">
-                            "johnmail"
-                        </p>
+                        <h1 className="text-3xl font-bold mb-2">{name}</h1>
+                        <p className="text-muted-foreground text-lg">{email}</p>
                     </div>
 
                     {/* Mobile separator */}
@@ -51,7 +51,7 @@ export default async function AccountPage() {
                     {/* Right side: Description */}
                     <div className="md:w-2/3 p-8 flex flex-col justify-center">
                         <h2 className="text-2xl font-semibold mb-4">About</h2>
-                        <p className="text-lg leading-relaxed">"yes"</p>
+                        <p className="text-lg leading-relaxed">{description}</p>
                     </div>
                 </div>
             </div>
