@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Technical Issue Helpdesk System
 
-## Getting Started
+This project is a technical issue helpdesk system developed for the "Agile and DevOps" course. Built with [Next.js](https://nextjs.org), it provides a secure platform for managing technical support tickets with robust authentication and role-based access control.
 
-First, run the development server:
+Try it out [**here**](https://sappot.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Test credentials (common password for all accounts: `testpass`):
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-   Support:
+    -   support1@test.com
+    -   support2@test.com
+-   User:
+    -   user1@test.com
+    -   user2@test.com
+    -   user3@test.com
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Overview
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The Technical Issue Helpdesk System enables users to create, track, and resolve technical support tickets. Key features include:
 
-## Learn More
+-   **Secure Authentication**: Never roll your own auth :)
+-   **Role-Based Access Control (RBAC)**: Ensures users can only access their own tickets and information
+-   **Ticket Management**: Create, track, and resolve technical issues
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+-   **User Authentication**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    -   Secure login/registration
+    -   Password encryption
+    -   Session management
 
-## Deploy on Vercel
+-   **Role-Based Access Control**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    -   Admin role: Full system access (no test credentials due to safety reasons)
+    -   Support staff: Only access to close and resolve tickets
+    -   Users: Access only to their submitted tickets
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-   **Ticket System**
+    -   Create new tickets
+    -   Track ticket status
+    -   Close or reopen tickets (support staff only)
+
+## Technologies Used (average 2025 tech stack):
+
+-   **Frontend**: Next.js, ShadCn UI, Tailwind CSS
+-   **Backend**: Next.js (gotta love not having to write a separate backend)
+-   **Database**: PostgreSQL (it simply works)
+-   **Authentication**: PostgreSQL with Supabase
+-   **Deployment**: Vercel
