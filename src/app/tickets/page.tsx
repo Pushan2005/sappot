@@ -18,11 +18,13 @@ export default async function TicketsPage() {
         }
 
         const tickets = data.map((ticket) => ({
+            ticket_id: ticket.id,
             heading: ticket.heading,
             content: ticket.content,
             email: ticket.email,
             timestamp: ticket.created_at,
             status: ticket.is_closed,
+            closed_at: ticket.closed_at,
         }));
 
         return tickets;
@@ -47,11 +49,13 @@ export default async function TicketsPage() {
                             {tickets.map((ticket, index) => (
                                 <TicketCard
                                     key={index}
+                                    ticket_id={ticket.ticket_id}
                                     heading={ticket.heading}
                                     content={ticket.content}
                                     email={ticket.email}
                                     timestamp={ticket.timestamp}
                                     is_closed={ticket.status}
+                                    closed_at={ticket.closed_at}
                                 />
                             ))}
                         </div>
