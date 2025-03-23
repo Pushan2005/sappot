@@ -71,6 +71,9 @@ export function TicketCard({
     const changeTicketStatus = async () => {
         const supabase = await createClient();
         const { data, error } = await supabase.auth.getUser();
+        if (error || !data?.user) {
+            router.push("/login");
+        }
         const user_id = data.user?.id;
         const closed_at = new Date().toISOString();
 
@@ -82,6 +85,9 @@ export function TicketCard({
             .from("tickets")
             .update(updatePayload)
             .eq("id", ticket_id);
+        if (ticketUpdateResponse.error) {
+            router.push("/error");
+        }
         router.refresh();
     };
 

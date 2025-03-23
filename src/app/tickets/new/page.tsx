@@ -35,7 +35,7 @@ export default function CreateTicketPage() {
         checkAuth();
     }, [router]);
 
-    const createTicket = async (e: any) => {
+    const createTicket = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
 
         if (!heading || !content) return;
@@ -78,11 +78,11 @@ export default function CreateTicketPage() {
                             <HiOutlineHeart className="w-16 h-16 mx-auto mb-4" />
                         </div>
                         <h1 className="text-3xl font-bold mb-4">
-                            We're listening
+                            We are listening
                         </h1>
                         <p className="text-gray-300 text-center leading-relaxed">
-                            Your voice matters to us. Share what's on your mind,
-                            and we will get back to you soon.
+                            Your voice matters to us. Share what&apos;s on your
+                            mind, and we will get back to you soon.
                         </p>
                     </div>
 
