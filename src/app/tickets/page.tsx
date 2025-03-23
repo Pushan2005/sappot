@@ -43,16 +43,18 @@ export default async function TicketsPage() {
                     </div>
                     {/* Right side */}
                     <div className="p-8 md:w-2/3 bg-muted/20">
-                        {tickets.map((ticket, index) => (
-                            <TicketCard
-                                key={index}
-                                heading={ticket.heading}
-                                content={ticket.content}
-                                email={ticket.email}
-                                timestamp={ticket.timestamp}
-                                is_closed={ticket.status}
-                            />
-                        ))}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {tickets.map((ticket, index) => (
+                                <TicketCard
+                                    key={index}
+                                    heading={ticket.heading}
+                                    content={ticket.content}
+                                    email={ticket.email}
+                                    timestamp={ticket.timestamp}
+                                    is_closed={ticket.status}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
