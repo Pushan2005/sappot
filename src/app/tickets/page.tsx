@@ -45,7 +45,7 @@ export default async function TicketsPage() {
                     </div>
                     {/* Right side */}
                     <div className="p-8 md:w-2/3 bg-muted/20">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid auto-rows-auto auto-cols-auto gap-4">
                             {tickets.map((ticket, index) => (
                                 <TicketCard
                                     key={index}

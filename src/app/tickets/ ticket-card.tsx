@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CalendarIcon } from "lucide-react";
+import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -31,6 +32,10 @@ import {
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
+interface CustomJwtPayload extends JwtPayload {
+    user_role: string;
+}
+
 export function TicketCard({
     heading,
     content,
@@ -49,7 +54,21 @@ export function TicketCard({
     closed_at?: string | null;
 }) {
     const [alertOpen, setAlertOpen] = useState(false);
+    const [userRole, setUserRole] = useState<string | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchUserRole = async () => {
+            try {
+                const role = await getUserRole();
+                setUserRole(role);
+            } catch (error) {
+                console.error("Error fetching user role:", error);
+            }
+        };
+
+        fetchUserRole();
+    }, []);
 
     const dateTimeGenerator = (timestamp: string) => {
         const date = new Date(timestamp);
@@ -67,6 +86,19 @@ export function TicketCard({
     };
 
     const dateTime = dateTimeGenerator(timestamp);
+
+    const getUserRole = async () => {
+        const supabase = await createClient();
+        const { data, error } = await supabase.auth.getSession();
+        if (error || !data?.session) {
+            router.push("/login");
+            return null;
+        }
+        const jwt = data.session!.access_token;
+        const decoded = jwtDecode<CustomJwtPayload>(jwt);
+        const user_role: string = decoded.user_role;
+        return user_role;
+    };
 
     const changeTicketStatus = async () => {
         const supabase = await createClient();
@@ -135,11 +167,13 @@ export function TicketCard({
                         </CardFooter>
                     </Card>
                 </ContextMenuTrigger>
-                <ContextMenuContent>
-                    <ContextMenuItem onClick={() => setAlertOpen(true)}>
-                        Change Ticket Status
-                    </ContextMenuItem>
-                </ContextMenuContent>
+                {userRole !== "end_user" && (
+                    <ContextMenuContent>
+                        <ContextMenuItem onClick={() => setAlertOpen(true)}>
+                            Change Ticket Status
+                        </ContextMenuItem>
+                    </ContextMenuContent>
+                )}
             </ContextMenu>
 
             <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
