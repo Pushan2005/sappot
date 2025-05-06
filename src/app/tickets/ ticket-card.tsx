@@ -54,6 +54,7 @@ export function TicketCard({
     closed_at?: string | null;
 }) {
     const [alertOpen, setAlertOpen] = useState(false);
+    const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
     const router = useRouter();
 
@@ -123,6 +124,21 @@ export function TicketCard({
         router.refresh();
     };
 
+    const handleDeleteTicket = async () => {
+        const supabase = await createClient();
+
+        const { error } = await supabase
+            .from("tickets")
+            .delete()
+            .eq("id", ticket_id);
+
+        if (error) {
+            console.error("Error deleting ticket:", error);
+            router.push("/error");
+        }
+        router.refresh();
+    };
+
     return (
         <>
             <ContextMenu>
@@ -172,6 +188,14 @@ export function TicketCard({
                         <ContextMenuItem onClick={() => setAlertOpen(true)}>
                             Change Ticket Status
                         </ContextMenuItem>
+                        {userRole === "head_it" && (
+                            <ContextMenuItem
+                                onClick={() => setDeleteAlertOpen(true)}
+                                className="text-red-600"
+                            >
+                                Delete Ticket
+                            </ContextMenuItem>
+                        )}
                     </ContextMenuContent>
                 )}
             </ContextMenu>
@@ -192,6 +216,30 @@ export function TicketCard({
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction onClick={changeTicketStatus}>
                             Confirm
+                        </AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
+            <AlertDialog
+                open={deleteAlertOpen}
+                onOpenChange={setDeleteAlertOpen}
+            >
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Delete Ticket</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            Are you sure you want to delete this ticket? This
+                            action cannot be undone.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                            onClick={handleDeleteTicket}
+                            className="bg-red-600 hover:bg-red-700"
+                        >
+                            Delete
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

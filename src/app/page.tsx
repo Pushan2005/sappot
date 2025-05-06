@@ -20,7 +20,7 @@ export default function Home() {
                             href="/tickets/new"
                             rel="noopener noreferrer"
                         >
-                            Some change
+                            Open a ticket
                         </Link>
                         <Link
                             className="rounded-full border border-solid border-foreground transition-colors flex items-center justify-center bg-transparent text-foreground gap-2 hover:bg-foreground hover:text-background font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
