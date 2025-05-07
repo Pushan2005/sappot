@@ -29,6 +29,16 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -55,6 +65,9 @@ export function TicketCard({
 }) {
     const [alertOpen, setAlertOpen] = useState(false);
     const [deleteAlertOpen, setDeleteAlertOpen] = useState(false);
+    const [editDialogOpen, setEditDialogOpen] = useState(false);
+    const [editTitle, setEditTitle] = useState(heading);
+    const [editContent, setEditContent] = useState(content);
     const [userRole, setUserRole] = useState<string | null>(null);
     const router = useRouter();
 
@@ -139,6 +152,26 @@ export function TicketCard({
         router.refresh();
     };
 
+    const handleEditTicket = async () => {
+        const supabase = await createClient();
+        const { error } = await supabase
+            .from("tickets")
+            .update({
+                heading: editTitle,
+                content: editContent,
+            })
+            .eq("id", ticket_id);
+
+        if (error) {
+            console.error("Error updating ticket:", error);
+            router.push("/error");
+        } else {
+            router.refresh();
+        }
+
+        setEditDialogOpen(false);
+    };
+
     return (
         <>
             <ContextMenu>
@@ -183,21 +216,29 @@ export function TicketCard({
                         </CardFooter>
                     </Card>
                 </ContextMenuTrigger>
-                {userRole !== "end_user" && (
-                    <ContextMenuContent>
-                        <ContextMenuItem onClick={() => setAlertOpen(true)}>
-                            Change Ticket Status
+                <ContextMenuContent>
+                    {userRole === "end_user" ? (
+                        <ContextMenuItem
+                            onClick={() => setEditDialogOpen(true)}
+                        >
+                            Edit Ticket
                         </ContextMenuItem>
-                        {userRole === "head_it" && (
-                            <ContextMenuItem
-                                onClick={() => setDeleteAlertOpen(true)}
-                                className="text-red-600"
-                            >
-                                Delete Ticket
+                    ) : (
+                        <>
+                            <ContextMenuItem onClick={() => setAlertOpen(true)}>
+                                Change Ticket Status
                             </ContextMenuItem>
-                        )}
-                    </ContextMenuContent>
-                )}
+                            {userRole === "head_it" && (
+                                <ContextMenuItem
+                                    onClick={() => setDeleteAlertOpen(true)}
+                                    className="text-red-600"
+                                >
+                                    Delete Ticket
+                                </ContextMenuItem>
+                            )}
+                        </>
+                    )}
+                </ContextMenuContent>
             </ContextMenu>
 
             <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
@@ -244,6 +285,42 @@ export function TicketCard({
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
+
+            <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>Edit Ticket</DialogTitle>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                        <div className="grid gap-2">
+                            <label htmlFor="title">Title</label>
+                            <Input
+                                id="title"
+                                value={editTitle}
+                                onChange={(e) => setEditTitle(e.target.value)}
+                            />
+                        </div>
+                        <div className="grid gap-2">
+                            <label htmlFor="content">Description</label>
+                            <Textarea
+                                id="content"
+                                value={editContent}
+                                onChange={(e) => setEditContent(e.target.value)}
+                                rows={4}
+                            />
+                        </div>
+                    </div>
+                    <DialogFooter>
+                        <Button
+                            variant="outline"
+                            onClick={() => setEditDialogOpen(false)}
+                        >
+                            Cancel
+                        </Button>
+                        <Button onClick={handleEditTicket}>Save Changes</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }
