@@ -1,10 +1,12 @@
-name: CI
+name: CI for Sappot Helpdesk
 
 on:
   push:
-    branches: [main]
+    branches:
+      - devops-setup
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
@@ -12,18 +14,18 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install Dependencies
+        run: pnpm install
 
-      - name: Lint code
-        run: npm run lint
+      - name: Run Linter
+        run: pnpm lint
 
-      - name: Build Next.js app
-        run: npm run build
+      - name: Build Project
+        run: pnpm build
