@@ -22,6 +22,12 @@ export default function Navbar() {
                             Tickets
                         </Link>
                         <Link
+                            href="/about"
+                            className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+                        >
+                            About
+                        </Link>
+                        <Link
                             href="/account"
                             className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-primary transition-colors cursor-pointer bg-transparent border-none"
                         >

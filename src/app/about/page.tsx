@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function AboutPage() {
     return (
         <div className="h-full min-h-screen w-full bg-background relative">
@@ -106,25 +108,37 @@ export default function AboutPage() {
                             {
                                 name: "Pushan Thimmegowda",
                                 role: "Lead Developer",
+                                image: "/team/pushan.jpeg",
                             },
                             {
                                 name: "Aryan Singh",
                                 role: "Scrum Master",
+                                image: "/team/aryan.jpg",
                             },
                             {
                                 name: "Samarth Pyati",
                                 role: "Junior Developer",
+                                image: "/team/pyati.jpg",
                             },
                             {
                                 name: "Rishab Aryan",
                                 role: "Product Owner",
+                                image: "/team/arayan.jpg",
                             },
                         ].map((member) => (
                             <div
                                 key={member.name}
                                 className="p-6 rounded-lg border border-border text-center"
                             >
-                                <div className="w-24 h-24 rounded-full bg-muted mx-auto mb-4"></div>
+                                <div className="w-24 h-24 relative mx-auto mb-4">
+                                    <Image
+                                        src={member.image}
+                                        alt={`${member.name} - ${member.role}`}
+                                        fill
+                                        className="rounded-full object-cover"
+                                        sizes="(max-width: 96px) 100vw, 96px"
+                                    />
+                                </div>
                                 <h3 className="text-xl font-medium mb-2">
                                     {member.name}
                                 </h3>
