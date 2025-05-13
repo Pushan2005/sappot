@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sappot-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sappot
+  template:
+    metadata:
+      labels:
+        app: sappot
+    spec:
+      containers:
+        - name: sappot-container
+          image: aryan220105/sappot:latest
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sappot-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: sappot
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
