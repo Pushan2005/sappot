@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,12 +20,22 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        run: npm install -g pnpm
 
       - name: Install Dependencies
         run: pnpm install
 
-      - name: Run Linter
+      - name: Run ESLint
         run: pnpm lint
+
+      - name: Check Code Formatting with Prettier
+        run: pnpm prettier --check .
+
+      - name: Run Tests with Jest
+        run: pnpm test
 
       - name: Build Project
         run: pnpm build
