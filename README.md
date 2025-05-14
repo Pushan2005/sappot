@@ -13,6 +13,8 @@ Test credentials (common password for all accounts: `testpass`):
   - user1@test.com
   - user2@test.com
   - user3@test.com
+- Head:
+  - head@test.com
 
 ## Project Overview
 
@@ -32,14 +34,16 @@ The Technical Issue Helpdesk System enables users to create, track, and resolve 
 
 - **Role-Based Access Control**
 
-  - Admin role: Full system access (no test credentials due to safety reasons)
+  - Admin role: Full system access
   - Support staff: Only access to close and resolve tickets
-  - Users: Access only to their submitted tickets
+  - Users: Access and edit permissions only to their own tickets
 
 - **Ticket System**
   - Create new tickets
+  - Edit one's own tickets
   - Track ticket status
   - Close or reopen tickets (support staff only)
+  - Delete tickets permanently (head/admin only)
 
 ## Technologies Used (average 2025 tech stack):
 
