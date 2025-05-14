@@ -3,6 +3,7 @@ name: CI for Sappot Helpdesk
 on:
   push:
     branches:
+      - main
       - devops-setup
   pull_request:
     branches:
