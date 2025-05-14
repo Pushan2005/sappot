@@ -4,24 +4,17 @@ This project is a technical issue helpdesk system developed for the "Agile and D
 
 Try it out [**here**](https://sappot.vercel.app/)
 
----
+Test credentials (common password for all accounts: `testpass`):
 
-### 🔐 Test Credentials
-
-(Common password for all accounts: `testpass`)
-
-- **Support:**
+- Support:
   - support1@test.com
   - support2@test.com
-
-- **User:**
+- User:
   - user1@test.com
   - user2@test.com
   - user3@test.com
 
----
-
-## 📌 Project Overview
+## Project Overview
 
 The Technical Issue Helpdesk System enables users to create, track, and resolve technical support tickets. Key features include:
 
@@ -29,34 +22,29 @@ The Technical Issue Helpdesk System enables users to create, track, and resolve 
 - **Role-Based Access Control (RBAC)**: Ensures users can only access their own tickets and information
 - **Ticket Management**: Create, track, and resolve technical issues
 
----
+## Features
 
-## 🚀 Features
+- **User Authentication**
 
-### **User Authentication**
+  - Secure login/registration
+  - Password encryption
+  - Session management
 
-- Secure login/registration  
-- Password encryption  
-- Session management  
+- **Role-Based Access Control**
 
-### **Role-Based Access Control**
+  - Admin role: Full system access (no test credentials due to safety reasons)
+  - Support staff: Only access to close and resolve tickets
+  - Users: Access only to their submitted tickets
 
-- **Admin role**: Full system access (no test credentials due to safety reasons)  
-- **Support staff**: Access to close and resolve tickets  
-- **Users**: Access only to their submitted tickets  
+- **Ticket System**
+  - Create new tickets
+  - Track ticket status
+  - Close or reopen tickets (support staff only)
 
-### **Ticket System**
+## Technologies Used (average 2025 tech stack):
 
-- Create new tickets  
-- Track ticket status  
-- Close or reopen tickets (support staff only)  
-
----
-
-## 🧰 Technologies Used (Average 2025 Tech Stack)
-
-- **Frontend**: Next.js, ShadCn UI, Tailwind CSS  
-- **Backend**: Next.js (gotta love not having to write a separate backend)  
-- **Database**: PostgreSQL (it simply works)  
-- **Authentication**: PostgreSQL with Supabase  
-- **Deployment**: Vercel  
+- **Frontend**: Next.js, ShadCn UI, Tailwind CSS
+- **Backend**: Next.js (gotta love not having to write a separate backend)
+- **Database**: PostgreSQL (it simply works)
+- **Authentication**: PostgreSQL with Supabase
+- **Deployment**: Vercel
