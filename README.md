@@ -1,3 +1,7 @@
+# Important Note
+
+If you're looking at this project after the free instance has spun down, you can still view a preview of how this project looks and works in production compiled in the [`DEMO.md`](./DEMO.md) file. (Click the file name)
+
 # Technical Issue Helpdesk System
 
 This project is a technical issue helpdesk system developed for the "Agile and DevOps" course. Built with [Next.js](https://nextjs.org), it provides a secure platform for managing technical support tickets with robust authentication and role-based access control.
